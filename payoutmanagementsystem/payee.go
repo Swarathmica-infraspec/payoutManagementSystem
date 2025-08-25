@@ -19,6 +19,9 @@ type payee struct {
 
 func NewPayee(name string, code string, accNumber int, ifsc string, bankName string,
 	email string, mobile int, payeeCategory string) (*payee, error) {
+	if name == "" {
+		return nil, errors.New("payoutmanagementsystem: NewPayee: payee should not be created with empty name")
+	}
 	if numberOfDigits(accNumber) != 10 && numberOfDigits(accNumber) != 16 {
 		return nil, errors.New("payoutmanagementsystem: NewPayee: payee should be created with account number of length 10 or 16")
 	}

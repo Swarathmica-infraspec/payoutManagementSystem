@@ -42,3 +42,11 @@ func TestInvalidEmail(t *testing.T) {
 		t.Fatal("payee should not be created with invalid email")
 	}
 }
+
+func TestPayeeCannotBeCreatedWithEmptyName(t *testing.T) {
+	_, err := NewPayee("", "123", 6780002345765432, "cbin05648", "cbi", "abc.com", 9123456782, "Employee")
+	expectedErr := errors.New("payoutmanagementsystem: NewPayee: payee should not be created with empty name")
+	if err == expectedErr {
+		t.Fatal("payee should not be created with empty name")
+	}
+}
