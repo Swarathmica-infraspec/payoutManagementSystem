@@ -27,4 +27,4 @@ jobs:
       - name: Run main test
         run: go test -v
       - name: Run feature test
-        run: go test -v ./payoutmanagementsystem/
+        run: go test -v ./payee/
