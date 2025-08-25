@@ -1,21 +1,27 @@
 name: Go
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        go-version: '1.23.11'
-
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Go ${{ matrix.go-version }}
+      - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ matrix.go-version }}
-      # You can test your matrix by printing the current Go version
+          go-version: '1.22.2'
+          cache-dependency-path: go.sum
       - name: Display Go version
         run: go version
+      - name: Install dependencies
+        run: go get .
+      - name: Run tests
+        run: go test -v
