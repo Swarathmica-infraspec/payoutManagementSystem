@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewPayee(t *testing.T) {
-	_, err := NewPayee("abc", "123", 6780003045, "cbin05648", "cbi", "abc@gmail.com", 91234567892, "Employee")
+	_, err := NewPayee("abc", "123", 6780003045, "cbin05648", "cbi", "abc@gmail.com", 9123456789, "Employee")
 	if err != nil {
 		t.Fatal("payee should be created")
 	}
@@ -21,8 +21,16 @@ func TestPayeeCannotBeCreatedWithInvalidAccountNumberOfLengthOtherThan10(t *test
 }
 
 func TestNewPayeeShouldBeCreatedWithAccountNumberOfLength16(t *testing.T) {
-	_, err := NewPayee("abc", "123", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 91234567892, "Employee")
+	_, err := NewPayee("abc", "123", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 9123456789, "Employee")
 	if err != nil {
 		t.Fatal("payee should be created with account number of length 16")
+	}
+}
+
+func TestMobileNumberMustBeOfLength10(t *testing.T) {
+	_, err := NewPayee("abc", "123", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 912345678, "Employee")
+	expectedErr := errors.New("payoutmanagementsystem: NewPayee: length of mobile number must be 10")
+	if err == expectedErr {
+		t.Fatal("payee should not be created with invalid mobile number")
 	}
 }

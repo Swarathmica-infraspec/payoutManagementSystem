@@ -21,6 +21,9 @@ func NewPayee(name string, code string, accNumber int, ifsc string, bankName str
 	if numberOfDigits(accNumber) != 10 && numberOfDigits(accNumber) != 16 {
 		return nil, errors.New("payoutmanagementsystem: NewPayee: payee should be created with account number of length 10 or 16")
 	}
+	if numberOfDigits(mobile) != 10 {
+		return nil, errors.New("payoutmanagementsystem: NewPayee: length of mobile number must be 10")
+	}
 	return &payee{beneficiaryName: name, beneficiaryCode: code, accNo: accNumber, ifsc: ifsc,
 		bankName: bankName, email: email, mobile: mobile, payeeCategory: payeeCategory}, nil
 }
