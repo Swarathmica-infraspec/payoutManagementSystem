@@ -15,7 +15,7 @@ GO-VERSION: 1.22.2 and above
 The project contains payoutmanagementsystem/
     - .github/workflows/payoutManagementSystem.yml
     - payoutmanagementsystem/
-        - payee.go
+        - payee.go <br>
         - payee_test.go
     - go.mod
     - go.sum
