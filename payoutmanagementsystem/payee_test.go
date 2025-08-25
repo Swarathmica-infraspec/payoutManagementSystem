@@ -34,3 +34,11 @@ func TestMobileNumberMustBeOfLength10(t *testing.T) {
 		t.Fatal("payee should not be created with invalid mobile number")
 	}
 }
+
+func TestInvalidEmail(t *testing.T) {
+	_, err := NewPayee("abc", "123", 6780002345765432, "cbin05648", "cbi", "abc.com", 9123456782, "Employee")
+	expectedErr := errors.New("payoutmanagementsystem: NewPayee: email is invalid")
+	if err == expectedErr {
+		t.Fatal("payee should not be created with invalid email")
+	}
+}

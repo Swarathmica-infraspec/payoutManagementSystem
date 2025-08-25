@@ -2,6 +2,7 @@ package payoutmanagementsystem
 
 import (
 	"errors"
+	"regexp"
 	"strconv"
 )
 
@@ -24,6 +25,9 @@ func NewPayee(name string, code string, accNumber int, ifsc string, bankName str
 	if numberOfDigits(mobile) != 10 {
 		return nil, errors.New("payoutmanagementsystem: NewPayee: length of mobile number must be 10")
 	}
+	if !checkEmailFormat(email) {
+		return nil, errors.New("payoutmanagementsystem: NewPayee: email is invalid")
+	}
 	return &payee{beneficiaryName: name, beneficiaryCode: code, accNo: accNumber, ifsc: ifsc,
 		bankName: bankName, email: email, mobile: mobile, payeeCategory: payeeCategory}, nil
 }
@@ -31,4 +35,10 @@ func NewPayee(name string, code string, accNumber int, ifsc string, bankName str
 func numberOfDigits(number int) int {
 	numString := strconv.Itoa(number)
 	return len(numString)
+}
+
+// Is this check enough for email? domain name has to be checked if it exists?
+func checkEmailFormat(email string) bool {
+	match, _ := regexp.MatchString("([a-z]+)(@)([a-z]+)(.)[com]", email)
+	return match
 }
