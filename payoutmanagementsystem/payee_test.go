@@ -50,3 +50,11 @@ func TestPayeeCannotBeCreatedWithEmptyName(t *testing.T) {
 		t.Fatal("payee should not be created with empty name")
 	}
 }
+
+func TestPayeeCannotBeCreatedWithEmptyCode(t *testing.T) {
+	_, err := NewPayee("abc", "", 6780002345765432, "cbin05648", "cbi", "abc.com", 9123456782, "Employee")
+	expectedErr := errors.New("payoutmanagementsystem: NewPayee: payee should not be created with empty code")
+	if err == expectedErr {
+		t.Fatal("payee should not be created with empty code")
+	}
+}
