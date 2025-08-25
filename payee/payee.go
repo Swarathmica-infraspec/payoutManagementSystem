@@ -17,11 +17,11 @@ type payee struct {
 	payeeCategory   string
 }
 
-var ErrInvalidAccountNumber = errors.New("payoutmanagementsystem: NewPayee: payee should be created with account number of length 10 or 16")
-var ErrInvalidEmail = errors.New("payoutmanagementsystem: NewPayee: email is invalid")
-var ErrInvalidMobileNumber = errors.New("payoutmanagementsystem: NewPayee: length of mobile number must be 10")
-var ErrEmptyName = errors.New("payoutmanagementsystem: NewPayee: payee should not be created with empty name")
-var ErrEmptyCode = errors.New("payoutmanagementsystem: NewPayee: payee should not be created with empty code")
+var ErrInvalidAccountNumber = errors.New("payoutmanagementsystem.NewPayee: account number must be of 10 or 16 digits only")
+var ErrInvalidEmail = errors.New("payoutmanagementsystem.NewPayee: invalid email format")
+var ErrInvalidMobileNumber = errors.New("payoutmanagementsystem.NewPayee: mobile number must be of 10 digits only")
+var ErrEmptyName = errors.New("payoutmanagementsystem.NewPayee: name should not be empty")
+var ErrEmptyCode = errors.New("payoutmanagementsystem.NewPayee: code should not be empty")
 
 func NewPayee(name string, code string, accNumber int, ifsc string, bankName string,
 	email string, mobile int, payeeCategory string) (*payee, error) {
