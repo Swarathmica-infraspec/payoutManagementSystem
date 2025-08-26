@@ -1,0 +1,63 @@
+package payoutmanagementsystem
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+)
+
+type PayeeRepository interface {
+	Create(context context.Context, p *payee) (int, error)
+	GetByID(context context.Context, id int) (*payee, error)
+}
+
+type PayeePostgresDB struct {
+	db *sql.DB
+}
+
+func PostgresPayeeDB(db *sql.DB) *PayeePostgresDB {
+	return &PayeePostgresDB{db: db}
+}
+
+func (r *PayeePostgresDB) Create(context context.Context, p *payee) (int, error) {
+	query := `
+		INSERT INTO payees (beneficiary_name, beneficiary_code, account_number,ifsc_code, bank_name, email, mobile, payee_category)
+		VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`
+	var id int
+	err := r.db.QueryRowContext(context, query,
+		p.beneficiaryName,
+		p.beneficiaryCode,
+		p.accNo,
+		p.ifsc,
+		p.bankName,
+		p.email,
+		fmt.Sprintf("%d", p.mobile),
+		p.payeeCategory,
+	).Scan(&id)
+	return id, err
+}
+
+func (r *PayeePostgresDB) GetByID(context context.Context, id int) (*payee, error) {
+	query := `
+		SELECT beneficiary_name, beneficiary_code, account_number,
+		       ifsc_code, bank_name, email, mobile, payee_category
+		FROM payees WHERE id=$1`
+	row := r.db.QueryRowContext(context, query, id)
+
+	var p payee
+	var accNo, mobile string
+	err := row.Scan(
+		&p.beneficiaryName,
+		&p.beneficiaryCode,
+		&accNo,
+		&p.ifsc,
+		&p.bankName,
+		&p.email,
+		&mobile,
+		&p.payeeCategory,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &p, nil
+}
