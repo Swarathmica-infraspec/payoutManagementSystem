@@ -24,7 +24,5 @@ jobs:
         run: go version
       - name: Install dependencies
         run: go get .
-      - name: Run main test
-        run: go test -v
-      - name: Run feature test
-        run: go test -v ./payoutmanagementsystem/
+      - name: Run tests
+        run: go test -v ./...
