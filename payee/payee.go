@@ -23,6 +23,7 @@ var ErrInvalidMobileNumber = errors.New("payoutmanagementsystem.NewPayee: mobile
 var ErrEmptyName = errors.New("payoutmanagementsystem.NewPayee: name should not be empty")
 var ErrEmptyCode = errors.New("payoutmanagementsystem.NewPayee: code should not be empty")
 var ErrInvalidIFSC = errors.New("payoutmanagementsystem.NewPayee: invalid ifsc code")
+var ErrInvalidBankName = errors.New("payoutmanagementsystem.NewPayee: invalid bank name")
 
 func NewPayee(name string, code string, accNumber int, ifsc string, bankName string,
 	email string, mobile int, payeeCategory string) (*payee, error) {
@@ -43,6 +44,9 @@ func NewPayee(name string, code string, accNumber int, ifsc string, bankName str
 	}
 	if !checkIFSC(ifsc) {
 		return nil, ErrInvalidIFSC
+	}
+	if len(bankName) > 50 {
+		return nil, ErrInvalidBankName
 	}
 	return &payee{beneficiaryName: name, beneficiaryCode: code, accNo: accNumber, ifsc: ifsc,
 		bankName: bankName, email: email, mobile: mobile, payeeCategory: payeeCategory}, nil
