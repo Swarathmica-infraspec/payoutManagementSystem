@@ -42,6 +42,9 @@ func NewPayee(name string, code string, accNumber int, ifsc string, bankName str
 	if !checkEmailFormat(email) {
 		return nil, ErrInvalidEmail
 	}
+	if !checkIFSC(ifsc) {
+		return nil, ErrInvalidIFSC
+	}
 	return &payee{beneficiaryName: name, beneficiaryCode: code, accNo: accNumber, ifsc: ifsc,
 		bankName: bankName, email: email, mobile: mobile, payeeCategory: payeeCategory}, nil
 }
@@ -55,4 +58,19 @@ func numberOfDigits(number int) int {
 func checkEmailFormat(email string) bool {
 	match, _ := regexp.MatchString("([a-z]+)(@)([a-z]+)(.)[com]", email)
 	return match
+}
+
+func checkIFSC(ifsc string) bool {
+	if len(ifsc) != 10 {
+		return false
+	}
+	matchAlphaForFirstFourChars, _ := regexp.MatchString("[A-Z]{4}", ifsc[:4])
+	if !matchAlphaForFirstFourChars {
+		return false
+	}
+	if ifsc[4] != '0' {
+		return false
+	}
+	matchNumForLastFiveChars, _ := regexp.MatchString("[1-9]{5}", ifsc[5:])
+	return matchNumForLastFiveChars
 }

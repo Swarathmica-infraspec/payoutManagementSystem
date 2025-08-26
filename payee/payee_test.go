@@ -15,13 +15,15 @@ var errTests = []struct {
 	payeeCategory   string
 	expectedErr     error
 }{
-	{"abc", "123", 6780003045, "cbin05648", "cbi", "abc@gmail.com", 9123456789, "Employee", nil},
-	{"abc", "123", 678000, "cbin05648", "cbi", "abc@gmail.com", 91234567892, "Employee", ErrInvalidAccountNumber},
-	{"abc", "123", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 9123456789, "Employee", nil},
-	{"abc", "123", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 912345678, "Employee", ErrInvalidMobileNumber},
-	{"abc", "123", 6780002345765432, "cbin05648", "cbi", "abc.com", 9123456782, "Employee", ErrInvalidEmail},
-	{"", "123", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 9123456782, "Employee", ErrEmptyName},
-	{"abc", "", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 9123456782, "Employee", ErrEmptyCode},
+	{"abc", "123", 67800023457654324, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee", ErrInvalidAccountNumber},
+	{"abc", "123", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 912345678, "Employee", ErrInvalidMobileNumber},
+	{"abc", "123", 6780002345765432, "CBIN056489", "cbi", "abc.com", 9123456782, "Employee", ErrInvalidEmail},
+	{"", "123", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 9123456782, "Employee", ErrEmptyName},
+	{"abc", "", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 9123456782, "Employee", ErrEmptyCode},
+	{"abc", "123", 6700345678, "CBIN0789", "cbi", "abc@gmail.com", 9123456666, "Employee", ErrInvalidIFSC},
+	{"abc", "123", 6700345678, "cbin045667", "cbi", "abc@gmail.com", 9123456666, "Employee", ErrInvalidIFSC},
+	{"abc", "123", 6700345678, "CBIN0456ab", "cbi", "abc@gmail.com", 9123456666, "Employee", ErrInvalidIFSC},
+	{"abc", "123", 6700345678, "CBIN045667", "cbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbicbi", "abc@gmail.com", 9123456666, "Employee", ErrInvalidBankName},
 }
 
 func TestValidatePayee(t *testing.T) {
