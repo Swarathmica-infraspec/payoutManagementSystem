@@ -15,8 +15,12 @@ var invalidPayeeFieldsTests = []struct {
 	payeeCategory   string
 	expectedErr     error
 }{
+	{"abc", "123", 678000234, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee", ErrInvalidAccountNumber},
+	{"abc", "123", 67800023445, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee", ErrInvalidAccountNumber},
+	{"abc", "123", 678000234576543, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee", ErrInvalidAccountNumber},
 	{"abc", "123", 67800023457654324, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee", ErrInvalidAccountNumber},
 	{"abc", "123", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 912345678, "Employee", ErrInvalidMobileNumber},
+	{"abc", "123", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 91234567891, "Employee", ErrInvalidMobileNumber},
 	{"abc", "123", 6780002345765432, "CBIN056489", "cbi", "abc.com", 9123456782, "Employee", ErrInvalidEmail},
 	{"", "123", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 9123456782, "Employee", ErrEmptyName},
 	{"abc", "", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 9123456782, "Employee", ErrEmptyCode},
