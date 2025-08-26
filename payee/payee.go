@@ -45,6 +45,9 @@ func NewPayee(name string, code string, accNumber int, ifsc string, bankName str
 	if !checkIFSC(ifsc) {
 		return nil, ErrInvalidIFSC
 	}
+	if len(bankName) > 50 {
+		return nil, ErrInvalidBankName
+	}
 	return &payee{beneficiaryName: name, beneficiaryCode: code, accNo: accNumber, ifsc: ifsc,
 		bankName: bankName, email: email, mobile: mobile, payeeCategory: payeeCategory}, nil
 }
