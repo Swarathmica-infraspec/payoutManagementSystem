@@ -14,6 +14,7 @@ var validExpenseTests = []struct {
 	receiptURI   string
 }{
 	{"Lunch", 450.00, "2025-08-27", "Food", "Team lunch", 10, "https://receipts.com/lunch.jpg"},
+	{"Travel", 120.00, "2025-08-26", "Transport", "Bus fare", 11, ""},
 }
 
 func TestValidateExpenseWithValidValues(t *testing.T) {
@@ -36,6 +37,7 @@ var invalidExpenseTests = []struct {
 	expectedErr  error
 }{
 	{"", 450.00, "2025-08-27", "Food", "Team lunch", 10, "https://receipts.com/lunch.jpg", ErrInvalidTitle},
+	{"Travel", 0, "2025-08-27", "Travel", "Bus fare", 11, "", ErrInvalidAmount},
 }
 
 func TestValidateExpenseWithInvalidValues(t *testing.T) {
