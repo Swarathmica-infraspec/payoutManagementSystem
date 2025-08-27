@@ -6,6 +6,14 @@ import (
 	"strconv"
 )
 
+var ErrInvalidAccountNumber = errors.New("payoutmanagementsystem.NewPayee: account number must be of 10 or 16 digits only")
+var ErrInvalidEmail = errors.New("payoutmanagementsystem.NewPayee: invalid email format")
+var ErrInvalidMobileNumber = errors.New("payoutmanagementsystem.NewPayee: mobile number must be of 10 digits only")
+var ErrEmptyName = errors.New("payoutmanagementsystem.NewPayee: name should not be empty")
+var ErrEmptyCode = errors.New("payoutmanagementsystem.NewPayee: code should not be empty")
+var ErrInvalidIFSC = errors.New("payoutmanagementsystem.NewPayee: invalid ifsc code")
+var ErrInvalidBankName = errors.New("payoutmanagementsystem.NewPayee: invalid bank name")
+
 type payee struct {
 	beneficiaryName string
 	beneficiaryCode string
@@ -20,19 +28,19 @@ type payee struct {
 func NewPayee(name string, code string, accNumber int, ifsc string, bankName string,
 	email string, mobile int, payeeCategory string) (*payee, error) {
 	if name == "" {
-		return nil, errors.New("payoutmanagementsystem: NewPayee: payee should not be created with empty name")
+		return nil, ErrEmptyName
 	}
 	if code == "" {
-		return nil, errors.New("payoutmanagementsystem: NewPayee: payee should not be created with empty code")
+		return nil, ErrEmptyCode
 	}
 	if numberOfDigits(accNumber) != 10 && numberOfDigits(accNumber) != 16 {
-		return nil, errors.New("payoutmanagementsystem: NewPayee: payee should be created with account number of length 10 or 16")
+		return nil, ErrInvalidAccountNumber
 	}
 	if numberOfDigits(mobile) != 10 {
-		return nil, errors.New("payoutmanagementsystem: NewPayee: length of mobile number must be 10")
+		return nil, ErrInvalidMobileNumber
 	}
 	if !checkEmailFormat(email) {
-		return nil, errors.New("payoutmanagementsystem: NewPayee: email is invalid")
+		return nil, ErrInvalidEmail
 	}
 	return &payee{beneficiaryName: name, beneficiaryCode: code, accNo: accNumber, ifsc: ifsc,
 		bankName: bankName, email: email, mobile: mobile, payeeCategory: payeeCategory}, nil
