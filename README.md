@@ -14,14 +14,17 @@ GO-VERSION: 1.22.2 and above
 
 The project contains payoutmanagementsystem/ <br>
 - .github/workflows/payoutManagementSystem.yml <br>
-- payoutmanagementsystem/
+- payee/
   - payee.go <br>
   - payee_test.go <br>
-  - go.mod <br>
-  - go.sum <br>
-  - main.go <br>
-  - main_test.go <br>
-  - README.md <br>
+  - payee_db.sql <br>
+  - payeeDAO.go <br>
+  - payeeDAO_test.go <br>
+- go.mod <br>
+- go.sum <br>
+- main.go <br>
+- main_test.go <br>
+- README.md <br>
 
 NOTE: Only email ids with .com are supported.
 
@@ -57,3 +60,11 @@ docker exec -it devcontainer-db-1 psql -U postgres -d postgres -f /payee_db.sql
 # Data Access Object
 
 1. payeeDAO contains database query for payee and payeeDAO_test contains relevant tests
+
+To run tests:
+
+docker exec -it devcontainer-app-1 bash
+
+cd /workspaces/payoutManagementSystem
+
+go test -v ./...
