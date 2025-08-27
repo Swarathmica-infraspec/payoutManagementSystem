@@ -26,7 +26,7 @@ func TestCreateAndGetPayee(t *testing.T) {
 		t.Fatalf("validation failed: %v", err)
 	}
 
-	id, err := store.Create(context.Background(), p)
+	id, err := store.Insert(context.Background(), p)
 	if err != nil {
 		// t.Fatalf("failed to insert payee: %v", err)
 		t.Skip("skipping Insertion")

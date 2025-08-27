@@ -18,7 +18,7 @@ func PostgresPayeeDB(db *sql.DB) *PayeePostgresDB {
 	return &PayeePostgresDB{db: db}
 }
 
-func (r *PayeePostgresDB) Create(context context.Context, p *payee) (int, error) {
+func (r *PayeePostgresDB) Insert(context context.Context, p *payee) (int, error) {
 	query := `
 		INSERT INTO payees (beneficiary_name, beneficiary_code, account_number,ifsc_code, bank_name, email, mobile, payee_category)
 		VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`
