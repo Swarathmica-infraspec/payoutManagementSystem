@@ -3,8 +3,8 @@ package payoutmanagementsystem
 import (
 	"context"
 	"database/sql"
+	_ "github.com/lib/pq"
 	"testing"
-
 )
 
 func setupTestDB(t *testing.T) *sql.DB {

@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS payees (
-    id SERIAL PRIMARY KEY,
+    id  INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     beneficiary_name TEXT NOT NULL,
     beneficiary_code TEXT NOT NULL UNIQUE,
-    account_number INTEGER NOT NULL,
+    account_number BIGINT NOT NULL UNIQUE,
     ifsc_code VARCHAR(11) NOT NULL,
     bank_name VARCHAR(50) NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    mobile INTEGER NOT NULL,
+    mobile BIGINT NOT NULL UNIQUE,
     payee_category TEXT
 );
