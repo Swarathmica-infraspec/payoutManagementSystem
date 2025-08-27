@@ -17,6 +17,7 @@ var validExpenseTests = []struct {
 	{"Travel", 120.00, "2025-08-26", "Transport", "Bus fare", 11, ""},
 	{"Paper", 20, "2025-08-21", "Supplies", "For printer", 13, "/var/docs/paper-receipt.png"},
 	{"Paper", 20, "2025-08-21", "Supplies", "For printer", 13, "/var/docs/paper-receipt.png"},
+	{"Hotel", 2100, "2025-08-25", "Accommodation", "Stay", 1, ""},
 }
 
 func TestValidateExpenseWithValidValues(t *testing.T) {
@@ -44,6 +45,7 @@ var invalidExpenseTests = []struct {
 	{"Snacks", 55, "2025-13-30", "Food", "Evening snacks", 12, "", ErrInvalidDate},
 	{"Snacks", 55, "1999-12-24", "Food", "Evening snacks", 12, "", ErrInvalidDate},
 	{"Paper", 20, "2025-08-21", "", "For printer", 13, "", ErrInvalidCategory},
+	{"Hotel", 2100, "2025-08-25", "Accommodation", "Stay", -1, "", ErrInvalidPayeeID},
 }
 
 func TestValidateExpenseWithInvalidValues(t *testing.T) {

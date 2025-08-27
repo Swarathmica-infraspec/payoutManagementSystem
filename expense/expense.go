@@ -19,6 +19,7 @@ var ErrInvalidTitle = errors.New("payoutmanagementsystem.NewExpense: title shoul
 var ErrInvalidAmount = errors.New("payoutmanagementsystem.NewExpense: amount must be greater than 0")
 var ErrInvalidDate = errors.New("payoutmanagementsystem.NewExpense: invalid date values or format (YYYY-MM-DD)")
 var ErrInvalidCategory = errors.New("payoutmanagementsystem.NewExpense: category should not be empty")
+var ErrInvalidPayeeID = errors.New("payoutmanagementsystem.NewExpense: payeeID must be positive")
 
 func NewExpense(title string, amount float64, dateIncurred string, category string, notes string, payeeID int, receiptURI string) (*expense, error) {
 	if title == "" {
@@ -32,6 +33,9 @@ func NewExpense(title string, amount float64, dateIncurred string, category stri
 	}
 	if category == "" {
 		return nil, ErrInvalidCategory
+	}
+	if payeeID <= 0 {
+		return nil, ErrInvalidPayeeID
 	}
 	return &expense{
 		title:        title,
