@@ -3,7 +3,6 @@ package payoutmanagementsystem
 import (
 	"context"
 	"database/sql"
-	"fmt"
 )
 
 type PayeeRepository interface {
@@ -31,7 +30,7 @@ func (r *PayeePostgresDB) Create(context context.Context, p *payee) (int, error)
 		p.ifsc,
 		p.bankName,
 		p.email,
-		fmt.Sprintf("%d", p.mobile),
+		p.mobile,
 		p.payeeCategory,
 	).Scan(&id)
 	return id, err
