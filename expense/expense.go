@@ -18,6 +18,7 @@ type expense struct {
 var ErrInvalidTitle = errors.New("payoutmanagementsystem.NewExpense: title should not be empty")
 var ErrInvalidAmount = errors.New("payoutmanagementsystem.NewExpense: amount must be greater than 0")
 var ErrInvalidDate = errors.New("payoutmanagementsystem.NewExpense: invalid date values or format (YYYY-MM-DD)")
+var ErrInvalidCategory = errors.New("payoutmanagementsystem.NewExpense: category should not be empty")
 
 func NewExpense(title string, amount float64, dateIncurred string, category string, notes string, payeeID int, receiptURI string) (*expense, error) {
 	if title == "" {
@@ -28,6 +29,9 @@ func NewExpense(title string, amount float64, dateIncurred string, category stri
 	}
 	if !checkDateFormat(dateIncurred) {
 		return nil, ErrInvalidDate
+	}
+	if category == "" {
+		return nil, ErrInvalidCategory
 	}
 	return &expense{
 		title:        title,
