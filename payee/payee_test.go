@@ -49,8 +49,8 @@ var validPayeeFieldsTests = []struct {
 	mobile          int
 	payeeCategory   string
 }{
-	{"abc", "123", 6780003045, "cbin05648", "cbi", "abc@gmail.com", 9123456789, "Employee"},
-	{"abc", "123", 6780002345765432, "cbin05648", "cbi", "abc@gmail.com", 9123456789, "Employee"},
+	{"abc", "123", 6780003045, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee"},
+	{"abc", "123", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee"},
 }
 
 func TestPayeeCanBeCreatedWithValidValues(t *testing.T) {
