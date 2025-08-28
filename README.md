@@ -34,4 +34,7 @@ NOTE: this project is still under development and hence does not have HTTP API n
 
 # CI
 
-Workflow is defined on push and pull actions. CI will run all tests when triggered.
+The workflow is triggered on every push and pull request.
+It runs the following checks automatically:
+- Linting with `golangci-lint`
+- Tests with `go test`
