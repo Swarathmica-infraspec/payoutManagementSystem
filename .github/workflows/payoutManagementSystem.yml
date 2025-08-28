@@ -1,13 +1,6 @@
-name: Go
+name: Payout Management System
 
-on:
-  push:
-    branches:
-      - main
-      - payee
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   build:
@@ -24,7 +17,5 @@ jobs:
         run: go version
       - name: Install dependencies
         run: go get .
-      - name: Run main test
-        run: go test -v
-      - name: Run feature test
-        run: go test -v ./payee/
+      - name: Run tests
+        run: go test -v ./...
