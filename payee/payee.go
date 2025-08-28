@@ -7,6 +7,7 @@ import (
 )
 
 type payee struct {
+	id              int
 	beneficiaryName string
 	beneficiaryCode string
 	accNo           int

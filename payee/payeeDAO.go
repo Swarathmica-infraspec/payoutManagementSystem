@@ -46,7 +46,7 @@ func (r *PayeePostgresDB) GetByID(context context.Context, id int) (*payee, erro
 	row := r.db.QueryRowContext(context, query, id)
 
 	var p payee
-	var accNo, mobile string
+	var accNo, mobile int
 	err := row.Scan(
 		&p.beneficiaryName,
 		&p.beneficiaryCode,

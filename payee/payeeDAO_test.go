@@ -9,7 +9,7 @@ import (
 )
 
 func setupTestDB(t *testing.T) *sql.DB {
-	dsn := "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
+	dsn := "postgres://postgres:postgres@db:5432/postgres?sslmode=disable"
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		// t.Fatalf("failed to connect to DB: %v", err)
@@ -44,7 +44,7 @@ func TestInsertAndGetPayee(t *testing.T) {
 		t.Fatalf("failed to fetch payee: %v", err)
 	}
 
-	if got.beneficiaryName != p.beneficiaryName {
-		t.Errorf("expected %s, got %s", p.beneficiaryName, got.beneficiaryName)
+	if got.beneficiaryCode != p.beneficiaryCode {
+		t.Errorf("expected beneficiary code: %s, got: %s", p.beneficiaryCode, got.beneficiaryCode)
 	}
 }
