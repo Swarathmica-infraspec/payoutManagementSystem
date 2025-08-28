@@ -20,6 +20,8 @@ The project contains payoutmanagementsystem/ <br>
   - payee_db.sql <br>
   - payeeDAO.go <br>
   - payeeDAO_test.go <br>
+  - payeeAPI.go <br>
+  - payeeApi_test.go <br>
 - go.mod <br>
 - go.sum <br>
 - main.go <br>
@@ -68,3 +70,36 @@ docker exec -it devcontainer-app-1 bash
 cd /workspaces/payoutManagementSystem
 
 go test -v ./...
+
+
+# HTTP API Usage
+
+since postgres is run from docker, 
+
+docker exec -it devcontainer-app-1 bash
+
+cd /workspaces/payoutManagementSystem
+
+then run: go run main.go #entry point
+
+payeeApi.go has the code for API while payeeAPI_test.go has test code
+
+NOTE: Supports only POST request
+
+1. POST request 
+curl -X POST http://localhost:8080/payees \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name":"Abc",
+    "code":"123",
+    "account_number":123456789,
+    "ifsc":"CBIN012345",
+    "bank":"CBI",
+    "email":"abc@example.com",
+    "mobile":9876543210,
+    "category":"Employee"
+  }'
+
+expected response: {'id':1}
+
+2. for test: go test ./...  #run inside docker env as above
