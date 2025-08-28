@@ -9,6 +9,6 @@ func Print(s string) string {
 }
 
 func main() {
-	payee.PayeePostAPI()
-
+	r := payee.SetupRouter()
+	r.Run(":8080")
 }

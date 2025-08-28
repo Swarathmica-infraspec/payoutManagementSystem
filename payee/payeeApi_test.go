@@ -14,6 +14,14 @@ func setupRouter() *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	r := gin.Default()
 
+	r.GET("/payees", func(c *gin.Context) {
+    payees := []map[string]interface{}{
+        {"id": 1, "name": "Alice"},
+    }
+    c.JSON(http.StatusOK, payees)
+	})
+
+
 	r.POST("/payees", func(c *gin.Context) {
 		var req struct {
 			Name     string `json:"name"`
@@ -71,4 +79,17 @@ func TestPayeePostAPIInvalidJSON(t *testing.T) {
 	if w.Code != http.StatusBadRequest {
 		t.Fatalf("expected status %d, got %d", http.StatusBadRequest, w.Code)
 	}
+}
+
+func TestPayeeGetAPISuccess(t *testing.T) {
+	router := setupRouter()
+
+	req, _ := http.NewRequest("GET", "/payees", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Fatalf("expected status %d, got %d, body=%s", http.StatusOK, w.Code, w.Body.String())
+	}
+
 }
