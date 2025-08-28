@@ -1,16 +1,18 @@
-name: Go
+name: Payout Management System
 
-on:
-  push:
-    branches:
-      - main
-      - payee
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
-  build:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+
+  test:
 
     runs-on: ubuntu-latest
 
