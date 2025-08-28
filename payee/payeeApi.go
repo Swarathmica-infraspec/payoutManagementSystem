@@ -28,13 +28,10 @@ func initStore() *PayeePostgresDB {
 	return store
 }
 
-func PayeePostAPI() {
+func PayeePostAPI(c *gin.Context) {
 
 	store := initStore()
 
-	router := gin.Default()
-
-	router.POST("/payees", func(c *gin.Context) {
 		var req struct {
 			Name     string `json:"name"`
 			Code     string `json:"code"`
@@ -64,7 +61,11 @@ func PayeePostAPI() {
 		}
 
 		c.JSON(http.StatusCreated, gin.H{"id": id})
-	})
+}
 
-	router.Run(":8080")
+
+func SetupRouter() *gin.Engine {
+	r := gin.Default()
+	r.POST("/payees", PayeePostAPI)
+	return r
 }
