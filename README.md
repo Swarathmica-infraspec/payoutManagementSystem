@@ -103,3 +103,7 @@ curl -X POST http://localhost:8080/payees \
 expected response: {'id':1}
 
 2. for test: go test ./...  #run inside docker env as above
+
+3. GET request
+curl -X GET http://localhost:8080/payees \
+  -H "Content-Type: application/json"
