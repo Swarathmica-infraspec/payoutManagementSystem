@@ -31,3 +31,7 @@ Test can be run by executing the below command in the terminal
   go test -v ./...
 
 NOTE: this project is still under development and hence does not have CLI or HTTP API.
+
+# CI
+
+Workflow is defined on push and pull actions. CI will run all tests when triggered.
