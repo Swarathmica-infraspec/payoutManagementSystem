@@ -18,7 +18,7 @@ func setupTestDB(t *testing.T) *sql.DB {
 	return db
 }
 
-func TestCreateAndGetPayee(t *testing.T) {
+func TestInsertAndGetPayee(t *testing.T) {
 	db := setupTestDB(t)
 	store := PostgresPayeeDB(db)
 
