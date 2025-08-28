@@ -10,20 +10,27 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func PayeePostAPI() {
+var store *PayeePostgresDB
 
+func initStore() *PayeePostgresDB {
+	if store != nil {
+		return store
+	}
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
 		dsn = "postgres://postgres:postgres@db:5432/postgres?sslmode=disable"
 	}
-
 	db, err := sql.Open("postgres", dsn)
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	store = PostgresPayeeDB(db)
+	return store
+}
 
-	store := PostgresPayeeDB(db)
+func PayeePostAPI() {
+
+	store := initStore()
 
 	router := gin.Default()
 
