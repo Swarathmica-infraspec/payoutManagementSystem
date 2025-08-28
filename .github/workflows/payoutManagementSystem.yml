@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - payee
+      - postgres
   pull_request:
     branches:
       - main
