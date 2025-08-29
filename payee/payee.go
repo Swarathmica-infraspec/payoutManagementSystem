@@ -25,7 +25,6 @@ type payee struct {
 	payeeCategory   string
 }
 
-
 func NewPayee(name string, code string, accNumber int, ifsc string, bankName string,
 	email string, mobile int, payeeCategory string) (*payee, error) {
 	if name == "" {
