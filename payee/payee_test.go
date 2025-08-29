@@ -37,7 +37,7 @@ func TestValidatePayee(t *testing.T) {
 		t.Run(tt.testName, func(t *testing.T) {
 			_, err := NewPayee(tt.beneficiaryName, tt.beneficiaryCode, tt.accNo, tt.ifsc, tt.bankName, tt.email, tt.mobile, tt.payeeCategory)
 			if err != tt.expectedErr {
-				t.Fatalf("Error Test Case: %v , Expected Error: %v but Actual Error: %v", tt.errMsg, tt.expectedErr, err)
+				t.Fatalf("Error Test Case: %v , Expected Error: %v but Actual Error: %v", tt.testName, tt.expectedErr, err)
 			}
 		})
 	}
