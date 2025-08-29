@@ -15,7 +15,6 @@ var ErrInvalidIFSC = errors.New("payoutmanagementsystem.NewPayee: invalid ifsc c
 var ErrInvalidBankName = errors.New("payoutmanagementsystem.NewPayee: invalid bank name")
 
 type payee struct {
-	id              int
 	beneficiaryName string
 	beneficiaryCode string
 	accNo           int
@@ -25,8 +24,6 @@ type payee struct {
 	mobile          int
 	payeeCategory   string
 }
-
-
 
 func NewPayee(name string, code string, accNumber int, ifsc string, bankName string,
 	email string, mobile int, payeeCategory string) (*payee, error) {
