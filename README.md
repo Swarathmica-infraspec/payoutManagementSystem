@@ -31,6 +31,7 @@ The project contains payoutmanagementsystem/ <br>
 NOTE: Only email ids with .com are supported.
 
 
+
 # Database Setup
 
 We use PostgreSQL running inside Docker for persistant storage.
@@ -103,3 +104,18 @@ curl -X POST http://localhost:8080/payees \
 expected response: {'id':1}
 
 2. for test: go test ./...  #run inside docker env as above
+
+# Run Tests
+
+Test can be run by executing the below command in the terminal
+  go test -v ./...
+
+NOTE: this project is still under development and hence does not have HTTP API now.
+
+# CI
+
+The workflow is triggered on every push and pull request.
+It runs the following checks automatically:
+- Linting with `golangci-lint`
+- Tests with `go test`
+
