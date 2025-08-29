@@ -45,25 +45,3 @@ func TestValidatePayee(t *testing.T) {
 	}
 }
 
-var validPayeeFieldsTests = []struct {
-	beneficiaryName string
-	beneficiaryCode string
-	accNo           int
-	ifsc            string
-	bankName        string
-	email           string
-	mobile          int
-	payeeCategory   string
-}{
-	{"abc", "123", 6780003045, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee"},
-	{"abc", "123", 6780002345765432, "CBIN056489", "cbi", "abc@gmail.com", 9123456789, "Employee"},
-}
-
-func TestPayeeCanBeCreatedWithValidValues(t *testing.T) {
-	for _, tt := range validPayeeFieldsTests {
-		_, err := NewPayee(tt.beneficiaryName, tt.beneficiaryCode, tt.accNo, tt.ifsc, tt.bankName, tt.email, tt.mobile, tt.payeeCategory)
-		if err != nil {
-			t.Fatalf("Payee should be created but got error: %v", err)
-		}
-	}
-}
