@@ -60,7 +60,7 @@ func PayeePostAPI() {
 		c.JSON(http.StatusCreated, gin.H{"id": id})
 	})
 	if err := router.Run(":8080"); err != nil {
-    	log.Fatalf("failed to start server: %v", err)
+		log.Fatalf("failed to start server: %v", err)
 	}
 
 }
