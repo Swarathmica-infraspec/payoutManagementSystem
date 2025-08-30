@@ -77,3 +77,5 @@ func checkIFSC(ifsc string) bool {
 	matchNumForLastFiveChars, _ := regexp.MatchString("[1-9]{5}", ifsc[5:])
 	return matchNumForLastFiveChars
 }
+
+// { "CBIN0456ab", "cbi", , ErrInvalidIFSC},
