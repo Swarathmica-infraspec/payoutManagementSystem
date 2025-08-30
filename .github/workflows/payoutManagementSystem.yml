@@ -1,18 +1,38 @@
-name: Go
+name: Payout Management System
 
-on:
-  push:
-    branches:
-      - main
-      - payee
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
-  build:
+  format:
+    name: Check format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: test -z "$(gofmt -l .)"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+
+  test:
 
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v4
       - name: Setup Go
@@ -24,7 +44,5 @@ jobs:
         run: go version
       - name: Install dependencies
         run: go get .
-      - name: Run main test
-        run: go test -v
-      - name: Run feature test
-        run: go test -v ./payee/
+      - name: Run tests
+        run: go test -v ./...
