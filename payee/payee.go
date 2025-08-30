@@ -57,7 +57,6 @@ func numberOfDigits(number int) int {
 	return len(numString)
 }
 
-// Is this check enough for email? domain name has to be checked if it exists?
 func checkEmailFormat(email string) bool {
 	match, _ := regexp.MatchString("([a-z]+)(@)([a-z]+)(.)[com]", email)
 	return match
@@ -77,5 +76,3 @@ func checkIFSC(ifsc string) bool {
 	matchNumForLastFiveChars, _ := regexp.MatchString("[1-9]{5}", ifsc[5:])
 	return matchNumForLastFiveChars
 }
-
-// { "CBIN0456ab", "cbi", , ErrInvalidIFSC},
